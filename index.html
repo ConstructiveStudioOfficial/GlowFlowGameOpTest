@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>GLOW FLOW</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-wrapper" id="game-wrapper">
+      <div class="game-container" id="game-container"></div>
+      <div class="scores-container" id="scores-container">
+        <div class="result" id="score">SCORE: 0</div>
+        <div class="result" id="colors-progress">COLORS: 4</div>
+        <div class="result" id="best-score">BEST: 0</div>
+      </div>
+      <div class="game-over" id="game-over">
+        GAME OVER
+        <div class="restart-button" id="restart-button">RESTART</div>
+      </div>
+      <button class="pause-button" id="pause-button">
+        <svg width="50" height="50" id="pause-icon">
+          <rect x="14" y="10" width="7" height="30" fill="#ffffff" />
+          <rect x="26" y="10" width="7" height="30" fill="#ffffff" />
+        </svg>
+      </button>
+    </div>
+    <script src="matter.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
