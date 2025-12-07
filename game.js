@@ -144,7 +144,7 @@ function createPiece() {
   const shape = shapes[Math.floor(Math.random() * shapes.length)];
   const color = colors[Math.floor(Math.random() * colors.length)];
   let piece;
-  const baseArea = 2000;
+  const baseArea = 1500;
   if (shape === "circle") {
     const radius = Math.sqrt(baseArea / Math.PI);
     piece = Bodies.circle(x, 50, radius, {

@@ -11,6 +11,7 @@
 body {
   display: flex;
   align-items: top;
+  justify-content: center;
   height: 100dvh;
   color: white;
   background-color: rgb(130, 130, 130);
@@ -19,9 +20,9 @@ body {
   position: relative;
   overflow: hidden;
   width: 100%;
-  margin-top: 15dvh;
+  margin-top: 10dvh;
   margin-inline: 10px;
-  height: 70dvh;
+  height: 80dvh;
   max-width: 500px;
   border: 2px solid white;
 }
