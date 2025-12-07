@@ -26,14 +26,12 @@ const Engine = Matter.Engine,
   Events = Matter.Events,
   Composite = Matter.Composite,
   engine = Matter.Engine.create();
-const pauseButton = document.getElementById("pause-button"),
-  gameWrapper = document.getElementById("game-wrapper"),
-  gameContainer = document.getElementById("game-container"),
-  gameOverDisplay = document.getElementById("game-over"),
+const gameContainer = document.getElementById("game-container"),
+  pauseButton = document.getElementById("pause-button"),
   restartButton = document.getElementById("restart-button"),
   pauseOverlay = document.createElement("div"),
-  gameWidth = gameWrapper.clientWidth,
-  gameHeight = gameWrapper.clientHeight;
+  gameWidth = gameContainer.clientWidth,
+  gameHeight = gameContainer.clientHeight;
 const render = Matter.Render.create({
   element: gameContainer,
   engine: engine,
@@ -98,7 +96,6 @@ const allColors = [
     "hexagon",
     "trapezoid",
     "rhombus",
-    "oval",
   ],
   colorUnlockThresholds = [20, 40, 80, 160, 320, 640],
   pieces = [];
@@ -197,20 +194,6 @@ function createPiece() {
       { x: 0, y: height / 2 },
       { x: -width / 2, y: 0 },
     ];
-    piece = Bodies.fromVertices(x, 50, [vertices], {
-      render: pieceStyle(color),
-    });
-  } else if (shape === "oval") {
-    const width = Math.sqrt(baseArea * 3);
-    const height = (baseArea / width) * 1.2;
-    const vertices = [];
-    for (let i = 0; i < 20; i++) {
-      const angle = (i / 20) * Math.PI * 2;
-      vertices.push({
-        x: (width / 2) * Math.cos(angle),
-        y: (height / 2) * Math.sin(angle),
-      });
-    }
     piece = Bodies.fromVertices(x, 50, [vertices], {
       render: pieceStyle(color),
     });
@@ -315,7 +298,7 @@ function checkColorUnlocks() {
       if (unlockedColors !== i + 5) {
         unlockedColors = i + 5;
         colors = allColors.slice(0, unlockedColors);
-        const progressElement = document.getElementById("colors-progress");
+        const progressElement = document.getElementById("colors");
         if (progressElement) {
           progressElement.textContent = `COLORS: ${unlockedColors}`;
         }
@@ -341,7 +324,6 @@ function checkGameOver() {
     if (piece === currentPiece) continue;
     if (piece.position.y < gameHeight * 0.3) {
       gameActive = false;
-      gameOverDisplay.style.display = "block";
       restartButton.style.display = "block";
       clearInterval(pieceInterval);
       clearInterval(checkLinesInterval);
@@ -365,7 +347,7 @@ function animateScore() {
     const oldBest = bestScore;
     bestScore = score;
     localStorage.setItem("bestScore", bestScore.toString());
-    document.getElementById("best-score").textContent = `BEST: ${bestScore}`;
+    document.getElementById("best").textContent = `BEST: ${bestScore}`;
     if (!hasNewRecordInThisGame && oldBest > 0) {
       hasNewRecordInThisGame = true;
       const centerX = gameWidth / 2;
@@ -471,7 +453,7 @@ window.addEventListener("beforeunload", () => {
 });
 colors = allColors.slice(0, unlockedColors);
 bestScore = parseInt(localStorage.getItem("bestScore")) || 0;
-document.getElementById("best-score").textContent = `BEST: ${bestScore}`;
+document.getElementById("best").textContent = `BEST: ${bestScore}`;
 runner = Runner.create();
 render.options.hasShadows = true;
 window.addEventListener("pagehide", () => {
@@ -482,7 +464,6 @@ restartButton.addEventListener("click", () => {
   if (runner) Runner.stop(runner);
   Matter.Runner.stop(runner);
   runner = Runner.create();
-  gameOverDisplay.style.display = "none";
   restartButton.style.display = "none";
   fallenPiecesCount = 0;
   gameStartTime = Date.now();
@@ -493,7 +474,7 @@ restartButton.addEventListener("click", () => {
   pieces.length = 0;
   hasNewRecordInThisGame = false;
   bestScore = parseInt(localStorage.getItem("bestScore")) || 0;
-  document.getElementById("best-score").textContent = `BEST: ${bestScore}`;
+  document.getElementById("best").textContent = `BEST: ${bestScore}`;
   World.add(engine.world, [ground, leftWall, rightWall, gameOverLine]);
   score = 0;
   displayedScore = 0;
@@ -515,8 +496,8 @@ restartButton.addEventListener("click", () => {
   Runner.run(runner, engine);
 });
 window.addEventListener("resize", () => {
-  render.options.width = gameWrapper.clientWidth;
-  render.options.height = gameWrapper.clientHeight;
+  render.options.width = gameContainer.clientWidth;
+  render.options.height = gameContainer.clientHeight;
   Render.setPixelRatio(render, window.devicePixelRatio);
 });
 window.addEventListener("beforeunload", () => {

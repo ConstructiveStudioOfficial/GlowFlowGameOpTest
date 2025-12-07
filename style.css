@@ -6,27 +6,25 @@
   box-sizing: border-box;
   -webkit-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: transparent;
 }
 body {
   display: flex;
-  align-items: top;
   justify-content: center;
+  align-items: top;
   height: 100dvh;
   color: white;
-  background-color: rgb(130, 130, 130);
+  background-image: url("bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-.game-wrapper {
-  position: relative;
-  overflow: hidden;
+.game-container {
   width: 100%;
-  margin-top: 10dvh;
+  margin-block: 10dvh;
   margin-inline: 10px;
   height: 80dvh;
   max-width: 500px;
   border: 2px solid white;
-}
-.game-container {
   position: relative;
   background: rgba(0, 0, 0, 0.6);
 }
@@ -42,35 +40,20 @@ body {
 .result {
   font-size: 24px;
 }
-.game-over {
+.restart-button {
   position: absolute;
-  display: none;
   z-index: 10;
   top: 50%;
   left: 50%;
+  width: 200px;
+  padding: 20px;
   transform: translate(-50%, -50%);
-  width: 150px;
-  padding-block: 10px;
-  min-height: 150px;
-  font-size: 36px;
-  text-align: center;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 20px;
   border: 2px solid white;
-}
-.restart-button {
-  position: absolute;
-  display: none;
-  z-index: 10;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 30px;
-  font-size: 20px;
-  padding: 10px;
+  border-radius: 20px;
   text-align: center;
-  border-top: 2px solid white;
   font-size: 24px;
+  display: none;
 }
 .score-popup {
   position: absolute;
@@ -86,14 +69,14 @@ body {
   height: 100px;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.8) 30%,
-    rgba(255, 255, 255, 0) 70%
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 50%
   );
   border-radius: 50%;
   animation: explode 0.5s ease-out forwards;
   pointer-events: none;
 }
-.scores-container {
+.result-container {
   position: absolute;
   display: flex;
   flex-direction: column;
